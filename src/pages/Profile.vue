@@ -21,7 +21,7 @@ export default defineComponent({
    setup() {
       const toast = useToast()
       const store = useStore()
-      const { image, readAbleImage, handleImage, cancelImage } = useImage()
+      const { image, readAbleImage, handleImage, cancelImage, handleDropImage, handleDragOver } = useImage()
       const { state: formState, handleChange, doValidation } = useForm(registrationJSON)
 
       const handleSubmit = async (e: Event) => {
@@ -44,6 +44,8 @@ export default defineComponent({
          readAbleImage,
          handleImage,
          cancelImage,
+         handleDropImage,
+         handleDragOver,
          isLoading: computed(() => store.state.user.loading),
       }
    },
@@ -52,24 +54,21 @@ export default defineComponent({
 
 <template>
    <LoginHeader />
-   <section class="flex md:grid-cols-2 gap-10 md:14 lg:gap-20 w-full flex-col-reverse md:flex-row">
-      <Draggable>
-         <template v-slot:1>
-            <RegistrationForm
-               class="flex-1"
-               @handleSubmit="handleSubmit"
-               @handleChange="handleChange"
-               :isLoading="isLoading"
-               :state="formState"
-               :isDisabled="!readAbleImage || !formState || isLoading" />
-         </template>
-         <template v-slot:2>
-            <UploadImage
-               class="flex-1"
-               @handleImage="handleImage"
-               @cancelImage="cancelImage"
-               :readAbleImage="readAbleImage" />
-         </template>
-      </Draggable>
+   <section class="flex gap-10 md:14 lg:gap-20 w-full flex-col-reverse md:flex-row">
+      <RegistrationForm
+         class="flex-1"
+         @handleSubmit="handleSubmit"
+         @handleChange="handleChange"
+         :isLoading="isLoading"
+         :state="formState"
+         :isDisabled="!readAbleImage || !formState || isLoading" />
+      <UploadImage
+         @drop="handleDropImage"
+         @dragover="handleDragOver"
+         draggable="true"
+         class="flex-1"
+         @handleImage="handleImage"
+         @cancelImage="cancelImage"
+         :readAbleImage="readAbleImage" />
    </section>
 </template>
