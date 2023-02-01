@@ -2,7 +2,6 @@
 import RegistrationForm from '@/components/profile/Form.vue'
 import LoginHeader from '@/components/profile/Header.vue'
 import UploadImage from '@/components/profile/UploadImage.vue'
-import Draggable from '@/components/reusable/Draggable.vue'
 import useForm from '@/hooks/useForm'
 import useImage from '@/hooks/useImage'
 import { registrationJSON } from '@/json/registration.json'
@@ -16,7 +15,6 @@ export default defineComponent({
       RegistrationForm,
       UploadImage,
       LoginHeader,
-      Draggable,
    },
    setup() {
       const toast = useToast()
