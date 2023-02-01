@@ -1,5 +1,5 @@
 import type { Form } from '@/types/form.type'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
 const useForm = (formState: Form[]) => {
    const initialState: any = {}
@@ -9,15 +9,16 @@ const useForm = (formState: Form[]) => {
          error: '',
       }
    })
+   const isValidated = ref(false)
    const state = reactive({
       ...initialState,
    })
 
    const handleChange = (e: Event) => {
-      console.log(e)
       const { name, value } = e.target as HTMLInputElement
       state[name].value = value
       state[name].error = ''
+      isValidated.value = Object.keys(state).every((key) => state[key].value)
    }
 
    const doValidation = () => {
@@ -31,6 +32,7 @@ const useForm = (formState: Form[]) => {
             }
          }
       })
+      isValidated.value = isValid
       return isValid
    }
 
@@ -49,6 +51,7 @@ const useForm = (formState: Form[]) => {
       handleChange,
       doValidation,
       updateForm,
+      isValidated,
    }
 }
 

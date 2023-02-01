@@ -22,7 +22,7 @@ export default defineComponent({
       const toast = useToast()
       const store = useStore()
       const { image, readAbleImage, handleImage, cancelImage, handleDropImage, handleDragOver } = useImage()
-      const { state: formState, handleChange, doValidation } = useForm(registrationJSON)
+      const { state: formState, handleChange, doValidation, isValidated } = useForm(registrationJSON)
 
       const handleSubmit = async (e: Event) => {
          e.preventDefault()
@@ -46,6 +46,7 @@ export default defineComponent({
          cancelImage,
          handleDropImage,
          handleDragOver,
+         isValidated,
          isLoading: computed(() => store.state.user.loading),
       }
    },
@@ -61,7 +62,7 @@ export default defineComponent({
          @handleChange="handleChange"
          :isLoading="isLoading"
          :state="formState"
-         :isDisabled="!readAbleImage || !formState || isLoading" />
+         :isDisabled="!readAbleImage || !isValidated || isLoading" />
       <UploadImage
          @drop="handleDropImage"
          @dragover="handleDragOver"
