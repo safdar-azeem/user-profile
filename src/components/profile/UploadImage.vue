@@ -21,11 +21,11 @@ export default defineComponent({
 
 <template>
    <div
-      class="bg-gray-200 relative self-start rounded-full h-[130px] w-[130px] md:w-full md:h-full md:min-h-[470px] md:max-h-[470px] md:rounded-md grid place-items-center border-gray-600 border"
+      class="bg-gray-200 relative self-start rounded-full min-h-[130px] h-[130px] w-[130px] md:w-full md:h-full md:min-h-[470px] md:max-h-[470px] md:rounded-md grid place-items-center border-gray-600 border"
       :style="readAbleImage ? 'border-style: none' : 'border-style: dashed'">
       <div class="grid place-items-center gap-y-3" v-if="!readAbleImage">
-         <h5>Drag & Drop to upload file</h5>
-         <h5>or</h5>
+         <h5 class="hidden md:flex">Drag & Drop to upload file</h5>
+         <h5 class="hidden md:flex">or</h5>
          <FileBtn @handleImage="$emit('handleImage', $event)" />
       </div>
 
