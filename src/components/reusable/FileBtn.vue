@@ -20,9 +20,9 @@ export default defineComponent({
 </script>
 
 <template>
-   <label class="btn rounded-md bg-gray-400" for="upload-image">
+   <label class="btn rounded-full md:rounded-md bg-gray-400" for="upload-image">
       <Icon :icon="icon" class="icon text-fs-4" />
-      <span> Browse Image </span>
+      <span class="hidden md:flex"> Browse Image </span>
    </label>
    <input id="upload-image" type="file" @change="$emit('handleImage', $event)" class="hidden" />
 </template>
